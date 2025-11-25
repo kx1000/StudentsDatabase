@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\StudentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
 #[ApiResource]
@@ -18,15 +19,25 @@ class Student
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Type(type: 'string')]
+    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
+    #[Assert\Type(type: 'string')]
+    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
 
+    #[Assert\Date]
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $dateOfBirth = null;
 
+    #[Assert\Type(type: 'string')]
+    #[Assert\Length(max: 500)]
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $contactDetails = null;
 
