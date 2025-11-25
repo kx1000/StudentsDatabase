@@ -35,11 +35,11 @@ COPY composer.json composer.lock ./
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install PHP dependencies (production only)
-RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction
-
 # Copy application source code
 COPY . .
+
+# Install PHP dependencies (production only)
+RUN composer install --optimize-autoloader --no-interaction
 
 # Create var directory structure and set proper permissions
 RUN mkdir -p var/cache var/log \
